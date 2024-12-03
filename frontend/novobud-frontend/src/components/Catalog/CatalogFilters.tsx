@@ -30,7 +30,7 @@ const CatalogFilters: React.FC<CatalogFiltersProps> = ({onFilter}) => {
   }
 
   return (
-    <form ref={filterFormRef} onSubmit={e => {e.preventDefault(); handleFilter()}}>
+    <form ref={filterFormRef} onSubmit={e => {e.preventDefault(); handleFilter()}} >
       <div className="flex items-center">
         <h3 className="text-xl font-bold mb-4">Фільтри</h3>
         <FaFilter className="ml-3 mb-2" />

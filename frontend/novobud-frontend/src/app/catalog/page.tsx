@@ -1,11 +1,24 @@
 'use client'
 
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import CatalogFilters, { Filters } from "@/components/Catalog/CatalogFilters";
 import CatalogGrid from "@/components/Catalog/CatalogGrid";
 import Property from "@/types/property";
 
+
+
 export default function CatalogPage() {
+  // const fetcher = () => fetch('http://localhost:3000/api/catalog').then((res) => res.json());
+  const [properties, setProperties] = useState<Property[]>([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3000/api/catalog')
+      .then((res) => res.json())
+      .then((data) => {
+        setProperties(data.properties);
+      })
+    }, []);
+
   const [filters, setFilters] = useState<Filters>({
     type: '',
     location: '',
@@ -16,21 +29,6 @@ export default function CatalogPage() {
   const handleFilter = (filters: Filters) => {
     setFilters(filters);
   }
-
-  const properties = [
-    {
-      id: 1,
-      type: 'Квартира',
-      price: 45000,
-      area: 45,
-      location: 'Харків, Шевченківський район',
-      address: 'пр. Перемоги, 75',
-      rooms: 2,
-      imgUrl: 'https://plus.unsplash.com/premium_photo-1661877303180-19a028c21048?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmVhdXRpZnVsJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-      description: '2 кімнатна квартира з ремонтом, технікою та меблями.',
-    },
-    // Додати більше нерухомості...
-  ] as Property[];
 
   const filteredProperties = properties.filter((property) => {
     return (
@@ -47,7 +45,7 @@ export default function CatalogPage() {
         <h1 className="text-3xl font-bold mb-6">Продаж нерухомості</h1>
         <div className="flex gap-8">
           {/* Секція фільтрів */}
-          <div className="w-1/3 bg-gray-100 p-6 rounded-lg shadow">
+          <div className="w-1/3 bg-gray-100 p-6 rounded-lg shadow h-fit">
             <CatalogFilters onFilter={handleFilter}/>
           </div>
 
