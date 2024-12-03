@@ -1,70 +1,89 @@
 import React, { ChangeEvent } from 'react';
+import { FaSearch, FaMapMarkerAlt, FaRegBuilding, FaFilter } from 'react-icons/fa';
+import PriceInput from './PriceInput';
 
-// Тип для фільтрів
-interface Filters {
+export interface Filters {
   type: string;
-  minPrice: number | string;
-  maxPrice: number | string;
+  location: string;
+  minPrice: number;
+  maxPrice: number;
 }
 
-// Пропси для компонента
 interface CatalogFiltersProps {
-  filters: Filters;
-  onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onFilter: (filters: Filters) => void;
 }
 
-const CatalogFilters: React.FC<CatalogFiltersProps> = ({ filters, onChange }) => {
+const CatalogFilters: React.FC<CatalogFiltersProps> = ({onFilter}) => {
+  const filterFormRef = React.useRef<HTMLFormElement>(null);
+
+  const handleFilter = () => {
+
+
+    const filters = {} as Filters;
+
+    filters.type = filterFormRef.current?.type?.value || '';
+    filters.location = filterFormRef.current?.location?.value || '';
+    filters.minPrice = filterFormRef.current?.minPrice?.value || 0;
+    filters.maxPrice = filterFormRef.current?.maxPrice?.value || 0;
+
+    onFilter(filters);
+  }
+
   return (
-    <div className="flex mb-8">
-      {/* Тип нерухомості */}
-      <div className="flex-1 mr-4">
-        <label htmlFor="type" className="block font-medium mb-2">
-          Тип нерухомості
-        </label>
-        <select
-          id="type"
-          name="type"
-          value={filters.type}
-          onChange={onChange}
-          className="w-full px-4 py-2 rounded border border-gray-300"
-        >
-          <option value="">Всі</option>
-          <option value="Квартира">Квартира</option>
-          <option value="Будинок">Будинок</option>
-          <option value="Таунхаус">Таунхаус</option>
-        </select>
+    <form ref={filterFormRef} onSubmit={e => {e.preventDefault(); handleFilter()}}>
+      <div className="flex items-center">
+        <h3 className="text-xl font-bold mb-4">Фільтри</h3>
+        <FaFilter className="ml-3 mb-2" />
       </div>
+      <div className="space-y-4">
+        <div>
+          <label htmlFor="type" className="block text-sm font-medium text-gray-700 flex items-center">
+            <FaRegBuilding className="mr-2" />
+            Тип нерухомості
+          </label>
+          <select
+            id="type"
+            name="type"
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+          >
+            <option value="">Всі</option>
+            <option value="Квартира">Квартира</option>
+            <option value="Будинок">Будинок</option>
+            <option value="Таунхаус">Таунхаус</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="location" className="block text-sm font-medium text-gray-700 flex items-center">
+            <FaMapMarkerAlt className="mr-2" />
+            Географія пошуку
+          </label>
+          <input
+            id="location"
+            name="location"
+            type="text"
 
-      {/* Мінімальна ціна */}
-      <div className="flex-1 mr-4">
-        <label htmlFor="minPrice" className="block font-medium mb-2">
-          Мінімальна ціна
-        </label>
-        <input
-          id="minPrice"
-          name="minPrice"
-          type="number"
-          value={filters.minPrice}
-          onChange={onChange}
-          className="w-full px-4 py-2 rounded border border-gray-300"
-        />
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+          />
+        </div>
+        <div className="flex space-x-4">
+          <PriceInput
+            id="minPrice"
+            label="Мінімальна ціна ($)"
+          />
+          <PriceInput
+            id="maxPrice"
+            label="Максимальна ціна ($)"
+          />
+        </div>
       </div>
-
-      {/* Максимальна ціна */}
-      <div className="flex-1">
-        <label htmlFor="maxPrice" className="block font-medium mb-2">
-          Максимальна ціна
-        </label>
-        <input
-          id="maxPrice"
-          name="maxPrice"
-          type="number"
-          value={filters.maxPrice}
-          onChange={onChange}
-          className="w-full px-4 py-2 rounded border border-gray-300"
-        />
-      </div>
-    </div>
+      <button
+        className="mt-6 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition flex items-center justify-center"
+        type='submit'
+      >
+        <FaSearch className="mr-2" />
+        Застосувати
+      </button>
+    </form>
   );
 };
 

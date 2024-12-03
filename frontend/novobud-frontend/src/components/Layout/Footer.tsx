@@ -8,7 +8,7 @@ const Footer = () => {
         <p>&copy; 2023 Нерухомість. Всі права захищені.</p>
         <nav>
           <ul className="flex space-x-4">
-            <li><Link href="/catalog">Каталог</Link></li>
+            {/* add some social media links */}
           </ul>
         </nav>
       </div>
