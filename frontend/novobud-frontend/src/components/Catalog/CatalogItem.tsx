@@ -9,7 +9,7 @@ export default function CatalogItem({property} : CatalogItemProps) {
     <div
       className="flex gap-4 bg-white rounded-lg overflow-hidden shadow-md p-4 transform transition hover:scale-105 hover:shadow-2xl"
     >
-      {/* Зображення */}
+
       <div className="w-1/3">
         <img
           src={property.imgUrl}
@@ -18,7 +18,6 @@ export default function CatalogItem({property} : CatalogItemProps) {
         />
       </div>
 
-      {/* Інформація про нерухомість */}
       <div className="flex-1">
         <h2 className="text-lg font-bold">{property.type}</h2>
         <p className="text-gray-600">{property.location}, {property.address}</p>

@@ -5,9 +5,10 @@ import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 interface PriceInputProps {
   id: string;
   label: string;
+  ref?: React.RefObject<HTMLInputElement>;
 }
 
-const PriceInput: React.FC<PriceInputProps> = ({id, label,}) => {
+const PriceInput: React.FC<PriceInputProps> = ({id, label, ref}) => {
   const [value, setValue] = React.useState(0);
 
   const handleArrowClick = (direction: "up" | "down") => {
@@ -29,6 +30,7 @@ const PriceInput: React.FC<PriceInputProps> = ({id, label,}) => {
       </label>
       <div className="flex items-center">
         <input
+          ref={ref}
           id={id}
           name={id}
           type="text"

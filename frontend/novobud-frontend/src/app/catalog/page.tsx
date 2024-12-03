@@ -1,14 +1,11 @@
 'use client'
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CatalogFilters, { Filters } from "@/components/Catalog/CatalogFilters";
 import CatalogGrid from "@/components/Catalog/CatalogGrid";
 import Property from "@/types/property";
 
-
-
 export default function CatalogPage() {
-  // const fetcher = () => fetch('http://localhost:3000/api/catalog').then((res) => res.json());
   const [properties, setProperties] = useState<Property[]>([]);
 
   useEffect(() => {
@@ -30,6 +27,8 @@ export default function CatalogPage() {
     setFilters(filters);
   }
 
+  // Added filter logic here, because I don't know api has it or not
+  // TODO: Remove to api
   const filteredProperties = properties.filter((property) => {
     return (
       (filters.type === '' || property.type === filters.type) &&
@@ -44,12 +43,10 @@ export default function CatalogPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl font-bold mb-6">Продаж нерухомості</h1>
         <div className="flex gap-8">
-          {/* Секція фільтрів */}
-          <div className="w-1/3 bg-gray-100 p-6 rounded-lg shadow h-fit">
+          {/* Filters section */}
             <CatalogFilters onFilter={handleFilter}/>
-          </div>
 
-          {/* Секція каталогу */}
+          {/* Catalog section */}
           <div className="flex-1">
             <CatalogGrid properties={filteredProperties} />
           </div>

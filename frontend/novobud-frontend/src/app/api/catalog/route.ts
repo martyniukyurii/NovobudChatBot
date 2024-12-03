@@ -1,6 +1,8 @@
 import Property from '@/types/property';
 import { NextResponse } from 'next/server'
 
+
+// Init data
 const properties = [
   {
     id: 1,
@@ -70,13 +72,9 @@ const properties = [
   },
 ] as Property[];
 
-
+// Simulate API call
 export async function GET(){
   return NextResponse.json({
     properties : properties
   })
-}
-
-export async function POST(request: Request) {
-  
 }

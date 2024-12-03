@@ -8,7 +8,10 @@ export default class Property {
   rooms: number;
   imgUrl: string;
   description: string;
-  constructor (id: number, type: string, price: number, area: number, location: string, address: string, rooms: number, imgUrl: string, description: string) {
+  dateOfPublication: Date;
+  dateOfLastChange: Date;
+  constructor (id: number, type: string, price: number, area: number, location: string, address: string, rooms: number,
+              imgUrl: string, description: string) {
     this.id = id;
     this.type = type;
     this.price = price;
@@ -18,6 +21,8 @@ export default class Property {
     this.rooms=rooms;
     this.imgUrl=imgUrl;
     this.description=description;
+    this.dateOfPublication= new Date();
+    this.dateOfLastChange=new Date();
   }
 
 }
