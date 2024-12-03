@@ -43,8 +43,8 @@ const CatalogFilters: React.FC<CatalogFiltersProps> = ({onFilter}) => {
     <div className="w-1/3 bg-gray-100 p-6 rounded-lg shadow h-fit">
       <form ref={filterFormRef} onSubmit={e => {e.preventDefault(); handleFilter()}} >
         <div className="flex items-center">
-          <h3 className="text-xl font-bold mb-4">Фільтри</h3>
-          <FaFilter className="ml-3 mb-2" />
+          <h3 className="text-xl font-bold">Фільтри</h3>
+          <FaFilter className="ml-3 text-xl" />
 
           <button
             type="button"
@@ -54,6 +54,7 @@ const CatalogFilters: React.FC<CatalogFiltersProps> = ({onFilter}) => {
             Очистити
           </button>
         </div>
+
         <div className="space-y-4">
           <div>
             <label htmlFor="type" className="block text-sm font-medium text-gray-700 flex items-center">
@@ -107,16 +108,27 @@ const CatalogFilters: React.FC<CatalogFiltersProps> = ({onFilter}) => {
             </div>
           </div>
 
-          <fieldset className="inline space-x-4">
-            <div className="inline-flex items-center">
-              <input id="dateUpdate" type='radio' name='dateGroup' className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 ml-2"/>
-              <label htmlFor="dateUpdate">Дата оновлення</label>
+          <fieldset className="flex space-x-4 text-nowrap">
+            <div className="flex items-center">
+              <input 
+                id="dateUpdate" 
+                type="radio" 
+                name="dateGroup" 
+                className="px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+              />
+              <label htmlFor="dateUpdate" className="ml-2">Дата оновлення</label>
             </div>
-            <div className="inline-flex items-center">
-              <input id="datePublication" type='radio' name='dateGroup' className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300 ml-2"/>
-              <label htmlFor="datePublication">Дата публікації</label>
+            <div className="flex items-center">
+              <input 
+                id="datePublication" 
+                type="radio" 
+                name="dateGroup" 
+                className="px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
+              />
+              <label htmlFor="datePublication" className="ml-2">Дата публікації</label>
             </div>
           </fieldset>
+
 
         </div>
         <button
