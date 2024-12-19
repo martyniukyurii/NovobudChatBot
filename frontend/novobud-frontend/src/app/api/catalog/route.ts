@@ -14,6 +14,8 @@ const properties = [
     rooms: 2,
     imgUrl: 'https://plus.unsplash.com/premium_photo-1661877303180-19a028c21048?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmVhdXRpZnVsJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
     description: '2 кімнатна квартира з ремонтом, технікою та меблями.',
+    contactName:"Джон Доу",
+    phoneNumbers: ['+380123456789', '+380987654321']
   },
   {
     id: 2,
@@ -25,6 +27,8 @@ const properties = [
     rooms: 4,
     imgUrl: 'https://cdn.riastatic.com/photosnew/dom/photo/prodaja-dom-shkurintsi-blagodatnyy-massiv__309434639xl.jpg',
     description: 'Просторий будинок з садом у спокійному районі.',
+    contactName:"Джон Доу",
+    phoneNumbers: ['+380123456789', '+380987654321']
   },
   {
     id: 3,
@@ -36,6 +40,8 @@ const properties = [
     rooms: 3,
     imgUrl: 'https://cdn.riastatic.com/photos/dom/photo/27821/2782165/278216501/278216501xl.webp',
     description: 'Сучасний таунхаус у новому житловому комплексі.',
+    contactName:"Джон Доу",
+    phoneNumbers: ['+380123456789', '+380987654321']
   },
   {
     id: 4,
@@ -47,6 +53,8 @@ const properties = [
     rooms: 2,
     imgUrl: 'https://cdn.riastatic.com/photosnew/dom/photo/prodaja-kvartira-odesa-primorskyy-rayon__309434642xl.jpg',
     description: '2 кімнатна квартира з ремонтом, технікою та меблями.',
+    contactName:"Джон Доу",
+    phoneNumbers: ['+380123456789', '+380987654321']
   },
   {
     id: 5,
@@ -58,6 +66,8 @@ const properties = [
     rooms: 5,
     imgUrl: 'https://cdn.riastatic.com/photosnew/dom/photo/prodaja-dom-vinnica-tsentralnyy-rayon__309434643xl.jpg',
     description: 'Просторий будинок з садом у центральному районі.',
+    contactName:"Джон Доу",
+    phoneNumbers: ['+380123456789', '+380987654321']
   },
   {
     id: 6,
@@ -69,6 +79,8 @@ const properties = [
     rooms: 3,
     imgUrl: 'https://cdn.riastatic.com/photos/dom/photo/27821/2782165/278216502/278216502xl.webp',
     description: 'Сучасний таунхаус у новому житловому комплексі.',
+    contactName:"Джон Доу",
+    phoneNumbers: ['+380123456789', '+380987654321']
   },
 ] as Property[];
 

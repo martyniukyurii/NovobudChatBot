@@ -10,8 +10,10 @@ export default class Property {
   description: string;
   dateOfPublication: Date;
   dateOfLastChange: Date;
+  contactName: string;
+  phoneNumbers: string[];
   constructor (id: number, type: string, price: number, area: number, location: string, address: string, rooms: number,
-              imgUrl: string, description: string) {
+              imgUrl: string, description: string, contactName: string, phoneNumbers: string[]) {
     this.id = id;
     this.type = type;
     this.price = price;
@@ -23,6 +25,8 @@ export default class Property {
     this.description=description;
     this.dateOfPublication= new Date();
     this.dateOfLastChange=new Date();
+    this.contactName=contactName;
+    this.phoneNumbers=phoneNumbers;
   }
 
 }
