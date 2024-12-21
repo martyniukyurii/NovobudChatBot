@@ -1,12 +1,11 @@
+from app.core.config import config
 from fastapi import FastAPI
-from app.core.db import db
+from app.api.main import api_router
 
-app = FastAPI()
+app = FastAPI(
+    debug=True,
+    title="Commercial Listings API",
+    summary="An API to manage commercial listings in MongoDB.",
+)
 
-
-@app.get("/")
-async def root():
-    data = list(db["commerce"].find())
-    for item in data:
-        item["_id"] = str(item["_id"])
-    return {"data": data}
+app.include_router(api_router, prefix="/api/" + config.api.version)

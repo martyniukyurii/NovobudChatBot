@@ -14,8 +14,14 @@ class DatabaseConfig(BaseConfig):
     
     connection_string: str
 
+class ApiConfig(BaseConfig):
+    model_config = SettingsConfigDict(env_prefix="api_")
+
+    version: str
+
 class Config(BaseSettings):
     db: DatabaseConfig = Field(default_factory=DatabaseConfig)
+    api: ApiConfig = Field(default_factory=ApiConfig)
     @classmethod
     def load(cls) -> "Config":
         return cls()
