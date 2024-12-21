@@ -29,14 +29,14 @@ export default function CatalogPage() {
 
   // Added filter logic here, because I don't know api has it or not
   // TODO: Remove to api
-  const filteredProperties = properties.filter((property) => {
-    return (
-      (filters.type === '' || property.type === filters.type) &&
-      (filters.location === '' || property.location.toLowerCase().includes(filters.location.toLowerCase())) &&
-      (filters.minPrice === 0 || property.price >= filters.minPrice) &&
-      (filters.maxPrice === 0 || property.price <= filters.maxPrice)
-    );
-  });
+  // const filteredProperties = properties.filter((property) => {
+  //   return (
+  //     (filters.type === '' || property.type === filters.type) &&
+  //     (filters.location === '' || property..toLowerCase().includes(filters.location.toLowerCase())) &&
+  //     (filters.minPrice === 0 || property.price >= filters.minPrice) &&
+  //     (filters.maxPrice === 0 || property.price <= filters.maxPrice)
+  //   );
+  // });
 
   return (
     <div className="bg-white min-h-screen text-gray-800">
@@ -48,7 +48,7 @@ export default function CatalogPage() {
 
           {/* Catalog section */}
           <div className="flex-1">
-            <CatalogGrid properties={filteredProperties} />
+            <CatalogGrid properties={properties} />
           </div>
         </div>
       </main>

@@ -1,32 +1,65 @@
-export default class Property {
-  id: number;
-  type: string;
-  price: number;
-  area: number;
-  location: string;
-  address: string;
-  rooms: number;
-  imgUrl: string;
-  description: string;
-  dateOfPublication: Date;
-  dateOfLastChange: Date;
-  contactName: string;
-  phoneNumbers: string[];
-  constructor (id: number, type: string, price: number, area: number, location: string, address: string, rooms: number,
-              imgUrl: string, description: string, contactName: string, phoneNumbers: string[]) {
-    this.id = id;
-    this.type = type;
-    this.price = price;
-    this.area = area;
-    this.location = location;
-    this.address=address;
-    this.rooms=rooms;
-    this.imgUrl=imgUrl;
-    this.description=description;
-    this.dateOfPublication= new Date();
-    this.dateOfLastChange=new Date();
-    this.contactName=contactName;
-    this.phoneNumbers=phoneNumbers;
-  }
+type PriceModel = {
+  original_price: number;
+  original_currency: string;
+  converted_price: number;
+  converted_currency: string;
+};
 
+type SquareAreaModel = {
+  amount: number;
+  unit: string;
+};
+
+type ContactModel = {
+  contact_name: string;
+  phone_number: string;
+};
+
+class Property {
+  id?: string;
+  title: string;
+  price: PriceModel;
+  phone_number?: string;
+  link: string;
+  date: string;
+  images: string[];
+  square_area: SquareAreaModel;
+  floor?: number;
+  type: string;
+  ownership?: string;
+  contact: ContactModel;
+  description?: string;
+  street?: string;
+
+  constructor(
+    title: string,
+    price: PriceModel,
+    link: string,
+    date: string,
+    images: string[],
+    square_area: SquareAreaModel,
+    type: string,
+    contact: ContactModel,
+    ownership?: string,
+    phone_number?: string,
+    floor?: number,
+    description?: string,
+    street?: string
+  ) {
+    this.title = title;
+    this.price = price;
+    this.link = link;
+    this.date = date;
+    this.images = images;
+    this.square_area = square_area;
+    this.type = type;
+    this.contact = contact;
+    this.ownership = ownership;
+    this.phone_number = phone_number;
+    this.floor = floor;
+    this.description = description;
+    this.street = street;
+  }
 }
+
+export default Property;
