@@ -20,6 +20,8 @@ export async function GET(req: Request) {
     const date_to = searchParams.get("date_to");
     const min_area = searchParams.get("min_area");
     const max_area = searchParams.get("max_area");
+    const page = searchParams.get("page");
+    const limit = searchParams.get("limit");
 
     let apiUrl = `${api_link}/items`;
 
@@ -32,7 +34,9 @@ export async function GET(req: Request) {
       date_from ||
       date_to ||
       min_area ||
-      max_area
+      max_area ||
+      page ||
+      limit
     ) {
       const queryParams = new URLSearchParams();
       if (tp) queryParams.append("type", tp);
@@ -43,6 +47,8 @@ export async function GET(req: Request) {
       if (date_to) queryParams.append("date_to", date_to);
       if (min_area) queryParams.append("min_area", min_area);
       if (max_area) queryParams.append("max_area", max_area);
+      if (page) queryParams.append("page", page);
+      if (limit) queryParams.append("limit", limit);
 
       apiUrl = `${api_link}/items/filter?${queryParams.toString()}`;
     }

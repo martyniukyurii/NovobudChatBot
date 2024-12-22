@@ -1,9 +1,15 @@
 import { Filters } from '@/components/Catalog/CatalogFilters';
 import Property from '@/types/property';
 
-async function fetchItems(): Promise<Property[]> {
+interface PaginationRequest{
+  page: number,
+  limit: number
+}
+
+async function fetchItems(req?: PaginationRequest): Promise<Property[]> {
   try {
-    const response = await fetch('/api/catalog');
+    const pagination = req ? `/?page=${req.page}&limit=${req.limit}` : '';
+    const response = await fetch('/api/catalog' + pagination);
     const data = await response.json();
     return data.commerce! as Property[];
   } catch (error) {
