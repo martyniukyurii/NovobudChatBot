@@ -1,4 +1,5 @@
 import Property from "@/types/property";
+import { trimText } from "@/utils/text_handler";
 import { FaMapMarkerAlt, FaPhoneAlt, FaUser, FaHome } from "react-icons/fa";
 
 interface CatalogItemProps {
@@ -6,12 +7,10 @@ interface CatalogItemProps {
 }
 
 const UNKNOWN = "Не вказано";
-const MAX_TEXT_LENGTH = 150; 
 
 const checkUnknown = (value: any, fallback: any): string =>
   !value || value === "0" || value === UNKNOWN ? UNKNOWN : fallback;
 
-const trimText = (text:string) => text.length > MAX_TEXT_LENGTH ? `${text.substring(0, MAX_TEXT_LENGTH - 1)}...` : text
 
 export default function CatalogItem({ property }: CatalogItemProps) {
   const {
