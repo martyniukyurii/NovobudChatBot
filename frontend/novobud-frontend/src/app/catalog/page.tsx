@@ -26,8 +26,6 @@ export default function CatalogPage() {
     loadProperties();
   }, []);
 
-
-
   const handleFilter = (filters: Filters) => {
     const loadFilteredProperties = async () => {
       try {
