@@ -4,6 +4,7 @@ import CatalogFilters, { Filters } from "@/components/Catalog/CatalogFilters";
 import CatalogGrid from "@/components/Catalog/CatalogGrid";
 import Property from "@/types/property";
 import {fetchItems, fetchFilteredItems} from '@/utils/api_handler';
+import CatalogGridSkeleton from "@/components/Catalog/CatalogGridSkeleton";
 
 export default function CatalogPage() {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -51,7 +52,7 @@ export default function CatalogPage() {
           <CatalogFilters onFilter={handleFilter}/>
           <div className="flex-1">
             {isLoading ? (
-              <div>Loading...</div>
+              <CatalogGridSkeleton />
             ) : (
               <CatalogGrid properties={properties} />
             )}
