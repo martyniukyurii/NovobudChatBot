@@ -7,6 +7,8 @@ export interface Filters {
   location: string;
   minPrice: number;
   maxPrice: number;
+  dateFrom?: Date;
+  dateTo?: Date;
 }
 
 interface CatalogFiltersProps {
@@ -25,6 +27,8 @@ const CatalogFilters: React.FC<CatalogFiltersProps> = ({onFilter}) => {
     filters.location = filterFormRef.current?.location?.value || '';
     filters.minPrice = filterFormRef.current?.minPrice?.value || 0;
     filters.maxPrice = filterFormRef.current?.maxPrice?.value || 0;
+    filters.dateFrom = filterFormRef.current?.dateFrom?.value ? new Date(filterFormRef.current.dateFrom.value) : undefined;
+    filters.dateTo = filterFormRef.current?.dateTo?.value ? new Date(filterFormRef.current.dateTo.value) : undefined;
 
     onFilter(filters);
   }
@@ -107,29 +111,6 @@ const CatalogFilters: React.FC<CatalogFiltersProps> = ({onFilter}) => {
               <input id="dateTo" type='date' className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"/>
             </div>
           </div>
-
-          <fieldset className="flex space-x-4 text-nowrap">
-            <div className="flex items-center">
-              <input 
-                id="dateUpdate" 
-                type="radio" 
-                name="dateGroup" 
-                className="px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-              />
-              <label htmlFor="dateUpdate" className="ml-2">Дата оновлення</label>
-            </div>
-            <div className="flex items-center">
-              <input 
-                id="datePublication" 
-                type="radio" 
-                name="dateGroup" 
-                className="px-3 py-2 border rounded-md focus:outline-none focus:ring focus:ring-blue-300"
-              />
-              <label htmlFor="datePublication" className="ml-2">Дата публікації</label>
-            </div>
-          </fieldset>
-
-
         </div>
         <button
           className="mt-6 w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition flex items-center justify-center"

@@ -1,80 +1,71 @@
-import Property from '@/types/property';
-import { NextResponse } from 'next/server'
+import { NextResponse } from "next/server";
+import { loadEnvConfig } from "@next/env";
 
+// Use top-level .env file (one level above ./frontend/)
+const projectDir = process.cwd().replace("frontend\\novobud-frontend", "");
+loadEnvConfig(projectDir);
 
-// Init data
-const properties = [
-  {
-    id: 1,
-    type: 'Квартира',
-    price: 45000,
-    area: 45,
-    location: 'Харків, Шевченківський район',
-    address: 'пр. Перемоги, 75',
-    rooms: 2,
-    imgUrl: 'https://plus.unsplash.com/premium_photo-1661877303180-19a028c21048?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YmVhdXRpZnVsJTIwcm9vbXxlbnwwfHwwfHx8MA%3D%3D',
-    description: '2 кімнатна квартира з ремонтом, технікою та меблями.',
-  },
-  {
-    id: 2,
-    type: 'Будинок',
-    price: 120000,
-    area: 150,
-    location: 'Львів, Сихівський район',
-    address: 'вулиця Сихівська, 12',
-    rooms: 4,
-    imgUrl: 'https://cdn.riastatic.com/photosnew/dom/photo/prodaja-dom-shkurintsi-blagodatnyy-massiv__309434639xl.jpg',
-    description: 'Просторий будинок з садом у спокійному районі.',
-  },
-  {
-    id: 3,
-    type: 'Таунхаус',
-    price: 85000,
-    area: 95,
-    location: 'Київ, Оболонський район',
-    address: 'вулиця Героїв Дніпра, 22',
-    rooms: 3,
-    imgUrl: 'https://cdn.riastatic.com/photos/dom/photo/27821/2782165/278216501/278216501xl.webp',
-    description: 'Сучасний таунхаус у новому житловому комплексі.',
-  },
-  {
-    id: 4,
-    type: 'Квартира',
-    price: 55000,
-    area: 55,
-    location: 'Одеса, Приморський район',
-    address: 'вулиця Дерибасівська, 14',
-    rooms: 2,
-    imgUrl: 'https://cdn.riastatic.com/photosnew/dom/photo/prodaja-kvartira-odesa-primorskyy-rayon__309434642xl.jpg',
-    description: '2 кімнатна квартира з ремонтом, технікою та меблями.',
-  },
-  {
-    id: 5,
-    type: 'Будинок',
-    price: 180000,
-    area: 180,
-    location: 'Вінниця, Центральний район',
-    address: 'вулиця Київська, 23',
-    rooms: 5,
-    imgUrl: 'https://cdn.riastatic.com/photosnew/dom/photo/prodaja-dom-vinnica-tsentralnyy-rayon__309434643xl.jpg',
-    description: 'Просторий будинок з садом у центральному районі.',
-  },
-  {
-    id: 6,
-    type: 'Таунхаус',
-    price: 95000,
-    area: 90,
-    location: 'Дніпро, Новокодацький район',
-    address: 'вулиця Павлоградська, 12',
-    rooms: 3,
-    imgUrl: 'https://cdn.riastatic.com/photos/dom/photo/27821/2782165/278216502/278216502xl.webp',
-    description: 'Сучасний таунхаус у новому житловому комплексі.',
-  },
-] as Property[];
+const api_link = process.env.api_link! + "/" + process.env.api_version!;
 
-// Simulate API call
-export async function GET(){
-  return NextResponse.json({
-    properties : properties
-  })
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+
+    // Extract query parameters
+    const tp = searchParams.get("type");
+    const location = searchParams.get("location");
+    const min_price = searchParams.get("min_price");
+    const max_price = searchParams.get("max_price");
+    const date_from = searchParams.get("date_from");
+    const date_to = searchParams.get("date_to");
+    const min_area = searchParams.get("min_area");
+    const max_area = searchParams.get("max_area");
+    const page = searchParams.get("page");
+    const limit = searchParams.get("limit");
+
+    let apiUrl = `${api_link}/items`;
+
+    // If any filter parameters are present, use the filter endpoint
+    if (
+      tp ||
+      location ||
+      min_price ||
+      max_price ||
+      date_from ||
+      date_to ||
+      min_area ||
+      max_area ||
+      page ||
+      limit
+    ) {
+      const queryParams = new URLSearchParams();
+      if (tp) queryParams.append("type", tp);
+      if (location) queryParams.append("location", location);
+      if (min_price) queryParams.append("min_price", min_price);
+      if (max_price) queryParams.append("max_price", max_price);
+      if (date_from) queryParams.append("date_from", date_from);
+      if (date_to) queryParams.append("date_to", date_to);
+      if (min_area) queryParams.append("min_area", min_area);
+      if (max_area) queryParams.append("max_area", max_area);
+      if (page) queryParams.append("page", page);
+      if (limit) queryParams.append("limit", limit);
+
+      apiUrl = `${api_link}/items/filter?${queryParams.toString()}`;
+    }
+
+    // Fetch data from the API
+    const response = await fetch(apiUrl);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch items: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error("Error fetching items:", error);
+    return NextResponse.json(
+      { error: "Failed to fetch items" },
+      { status: 500 }
+    );
+  }
 }
