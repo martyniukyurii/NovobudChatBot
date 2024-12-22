@@ -96,7 +96,6 @@ class PriceModel(BaseModel):
             elif "original_price" in data:
                 return data
 
-        # Default values if nothing matches
         return {
             "original_price": 0.0,
             "original_currency": "UAH",

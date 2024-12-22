@@ -35,14 +35,14 @@ async def list_listings(
     response_model_by_alias=False,
 )
 async def filter_listings(
-    type: Optional[str] = Query(None, description="Тип нерухомості (напр. квартира, офіс)"),
-    location: Optional[str] = Query(None, description="Географія пошуку (місто, район)"),
-    min_price: Optional[float] = Query(None, description="Мінімальна ціна ($)"),
-    max_price: Optional[float] = Query(None, description="Максимальна ціна ($)"),
-    date_from: Optional[str] = Query(None, description="Дата від (YYYY-MM-DD)"),
-    date_to: Optional[str] = Query(None, description="Дата до (YYYY-MM-DD)"),
-    min_area: Optional[float] = Query(None, description="Мінімальна площа (м²)"),
-    max_area: Optional[float] = Query(None, description="Максимальна площа (м²)"),
+    type: Optional[str] = Query(None, description="Type of property"),
+    location: Optional[str] = Query(None, description="Street"),
+    min_price: Optional[float] = Query(None, description="Min price ($)"),
+    max_price: Optional[float] = Query(None, description="Max price ($)"),
+    date_from: Optional[str] = Query(None, description="Date from (YYYY-MM-DD)"),
+    date_to: Optional[str] = Query(None, description="date to (YYYY-MM-DD)"),
+    min_area: Optional[float] = Query(None, description="Min area (м²)"),
+    max_area: Optional[float] = Query(None, description="Max area (м²)"),
     page: Optional[int] = Query(None, ge=1, description="Page number, starts from 1"),
     limit: Optional[int] = Query(None, ge=1, le=100, description="Number of items per page"),
 ):
