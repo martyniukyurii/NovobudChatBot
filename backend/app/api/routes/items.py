@@ -13,14 +13,20 @@ router = APIRouter(prefix="/items", tags=["items"])
     response_model=CommercialListingCollection,
     response_model_by_alias=False,
 )
-async def list_listings():
+async def list_listings(
+    page: Optional[int] = Query(None, ge=1, description="Page number, starts from 1"),
+    limit: Optional[int] = Query(None, ge=1, le=100, description="Number of items per page"),
+):
     """
-    List all commercial items.
+    List all commercial items with pagination.
     """
-    listings = await commerce.find().to_list()
-    
-    return CommercialListingCollection(commerce=listings)
+    if page is not None and limit is not None:
+        skip = (page - 1) * limit
+        paginated_listings = await commerce.find().skip(skip).limit(limit).to_list(length=limit)
+    else:
+        paginated_listings = await commerce.find().to_list()
 
+    return CommercialListingCollection(commerce=paginated_listings)
 
 @router.get(
     "/filter",
@@ -37,11 +43,11 @@ async def filter_listings(
     date_to: Optional[str] = Query(None, description="Дата до (YYYY-MM-DD)"),
     min_area: Optional[float] = Query(None, description="Мінімальна площа (м²)"),
     max_area: Optional[float] = Query(None, description="Максимальна площа (м²)"),
+    page: Optional[int] = Query(None, ge=1, description="Page number, starts from 1"),
+    limit: Optional[int] = Query(None, ge=1, le=100, description="Number of items per page"),
 ):
-    # Завантажуємо всі записи з бази даних
     all_listings = CommercialListingCollection(commerce=await commerce.find().to_list())
 
-    # Фільтрація записів
     filtered_listings = [
         listing for listing in all_listings.commerce
         if (
@@ -56,4 +62,11 @@ async def filter_listings(
         )
     ]
 
-    return CommercialListingCollection(commerce=filtered_listings)
+    
+    if page is not None and limit is not None:
+        skip = (page - 1) * limit
+        paginated_listings = filtered_listings[skip:skip+limit]
+    else:
+        paginated_listings = filtered_listings
+
+    return CommercialListingCollection(commerce=paginated_listings)
