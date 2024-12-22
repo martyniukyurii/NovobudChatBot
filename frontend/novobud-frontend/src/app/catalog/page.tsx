@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import CatalogFilters, { Filters } from "@/components/Catalog/CatalogFilters";
 import CatalogGrid from "@/components/Catalog/CatalogGrid";
 import Property from "@/types/property";
-import fetchItems from '@/utils/api_handler';
+import {fetchItems, fetchFilteredItems} from '@/utils/api_handler';
 
 export default function CatalogPage() {
   const [properties, setProperties] = useState<Property[]>([]);
@@ -26,15 +26,23 @@ export default function CatalogPage() {
     loadProperties();
   }, []);
 
-  const [filters, setFilters] = useState<Filters>({
-    type: '',
-    location: '',
-    minPrice: 0,
-    maxPrice: 0,
-  });
+
 
   const handleFilter = (filters: Filters) => {
-    setFilters(filters);
+    const loadFilteredProperties = async () => {
+      try {
+        setIsLoading(true);
+        const items = await fetchFilteredItems(filters);
+        console.log(items);
+        setProperties(items);
+      } catch (error) {
+        console.error('Failed to fetch properties:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadFilteredProperties();
   }
 
   return (

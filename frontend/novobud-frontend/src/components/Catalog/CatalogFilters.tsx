@@ -7,6 +7,8 @@ export interface Filters {
   location: string;
   minPrice: number;
   maxPrice: number;
+  dateFrom?: Date;
+  dateTo?: Date;
 }
 
 interface CatalogFiltersProps {
@@ -25,6 +27,8 @@ const CatalogFilters: React.FC<CatalogFiltersProps> = ({onFilter}) => {
     filters.location = filterFormRef.current?.location?.value || '';
     filters.minPrice = filterFormRef.current?.minPrice?.value || 0;
     filters.maxPrice = filterFormRef.current?.maxPrice?.value || 0;
+    filters.dateFrom = filterFormRef.current?.dateFrom?.value ? new Date(filterFormRef.current.dateFrom.value) : undefined;
+    filters.dateTo = filterFormRef.current?.dateTo?.value ? new Date(filterFormRef.current.dateTo.value) : undefined;
 
     onFilter(filters);
   }
