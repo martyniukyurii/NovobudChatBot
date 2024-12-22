@@ -26,10 +26,10 @@ class Property {
   square_area: SquareAreaModel;
   floor?: number;
   type: string;
-  ownership?: string;
-  contact: ContactModel;
-  description?: string;
-  street?: string;
+  ownership: string;
+  contact?: ContactModel;
+  description: string;
+  street: string;
 
   constructor(
     title: string,
@@ -39,12 +39,12 @@ class Property {
     images: string[],
     square_area: SquareAreaModel,
     type: string,
-    contact: ContactModel,
-    ownership?: string,
+    description: string,
+    street: string,
+    ownership: string,
+    contact?: ContactModel,
     phone_number?: string,
     floor?: number,
-    description?: string,
-    street?: string
   ) {
     this.title = title;
     this.price = price;

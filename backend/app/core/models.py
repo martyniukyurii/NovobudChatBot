@@ -1,5 +1,5 @@
 import re
-from typing import List, Optional, Any, Dict, Tuple, Union
+from typing import List, Optional, Any, Dict, Tuple
 from pydantic import BaseModel, Field, HttpUrl, model_validator
 from bson import ObjectId
 from pydantic.functional_validators import BeforeValidator
@@ -134,15 +134,15 @@ class ContactModel(BaseModel):
 class CommercialListing(MongoBaseModel):
     title: str = Field(default="")
     price: PriceModel
+    square_area: SquareAreaModel
+    contact: Optional[ContactModel] = None
     phone_number: Optional[str] = None
+    floor: Optional[int] = None
     link: HttpUrl = Field(default="https://example.com")
     date: str = Field(default="")
     images: List[HttpUrl] = Field(default_factory=list)
-    square_area: SquareAreaModel
-    floor: Optional[int] = None
     type: str = Field(default="")
     ownership: Optional[str] = Unknown
-    contact: Union[ContactModel, str] = Unknown
     description: Optional[str] = Unknown
     street: Optional[str] = Unknown
 
